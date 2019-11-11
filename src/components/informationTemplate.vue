@@ -5,7 +5,7 @@
       <p>Send Parcel LLC</p>
     </div>
     <div class="addressContainer">
-      <h2>6549 Grange Ln, Unit 201<br>Alexandria, VA 22315<br>United States</h2>
+      <h2>6549 Grange Ln<br>Alexandria, VA 22315<br>United States</h2>
     </div>
     <div class="buttonContainer">
       <button v-on:click="changeURL()">Amazon.com Store</button>
