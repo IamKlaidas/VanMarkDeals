@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <Header email="growth@vanmarkdeals.com" phoneNumber="+1 571 403 2844"/>
-    <Form/>
+    <confirmation :emailPost="this.emailPostedInforamtion"/>
+    <Form @emailPosted="updateMessage"/>
     <div class="displayInMiddle">
       <div class="backgroundImageContainer"></div>
     </div>
@@ -15,6 +16,7 @@ import Header from './components/headerTemplate'
 import Form from './components/formTemplate'
 import Information from './components/informationTemplate'
 import Sponsor from './components/sponsorTemplate'
+import confirmation from './components/emailSent'
 
 export default {
   name: 'app',
@@ -22,7 +24,20 @@ export default {
     Header,
     Form,
     Information,
-    Sponsor
+    Sponsor,
+    confirmation
+  }, data() {
+    return {
+      emailPostedInforamtion: {
+        sent: false,
+        notSent: false,
+        message: ""
+      }
+    }
+  }, methods: {
+    updateMessage(variable) {
+      this.emailPostedInforamtion=variable;
+    }
   }
 }
 </script>
