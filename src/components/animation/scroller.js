@@ -7,7 +7,7 @@ export function startAnimation(element) {
     easing: 'linear',
     loop: true,
     // direction: "reverse",
-    duration: 25000
+    duration: 50000
     // duration: 200000000000000000
   });
 }

@@ -1,11 +1,11 @@
 <template>
   <div class="formTemplate">
-    <form action="email.php" method="post">
+    <form @submit.prevent="sendEmail" method="post"><!-- action="http://localhost:3000/send-email" -->
       <h1>Contact Us</h1>
-      <input type="text" placeholder="Name..." name="name">
-      <input type="text" placeholder="Email..." name="email">
-      <input type="text" placeholder="Subject..." name="subject">
-      <textarea name="message" cols="30" placeholder="Message..." rows="10"></textarea>
+      <input type="text" placeholder="Name..." v-model="userName" name="name">
+      <input type="text" placeholder="Email..." v-model="email" name="email">
+      <input type="text" placeholder="Subject..." v-model="subject" name="subject">
+      <textarea name="message" v-model="message" cols="30" placeholder="Message..." rows="10"></textarea>
       <input id="submit" type="submit" value="Submit">
     </form>
   </div>
@@ -13,10 +13,24 @@
 
 <script>
   export default {
-    name: 'FormTemplate',
-    props: {
-      email: String,
-      phoneNumber: String
+    name: 'FormTemplate', 
+    methods: {
+      // sendEmail: function() {
+      //   axios.post("http://localhost:3000/send-email", { name: this.userName, email: this.email, subject: this.subject, message: this.message })
+      //        .then(function () { /* after */ })
+      // }
+      sendEmail: function() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("Post", "http://localhost:3000/send-email", true);
+        xhttp.send();
+      }
+    }, data() {
+      return {
+        userName: '',
+        email: '',
+        subject: '',
+        message: ''
+      }
     }
   }
 </script>
