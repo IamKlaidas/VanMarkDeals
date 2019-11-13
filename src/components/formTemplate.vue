@@ -2,10 +2,10 @@
   <div class="formTemplate">
     <form @submit.prevent="sendEmail" method="post"><!-- action="http://localhost:3000/send-email" -->
       <h1>Contact Us</h1>
-      <input type="text" placeholder="Name..." v-model="userName" id="myInput" name="name">
-      <input type="text" placeholder="Email..." v-model="email" id="myInput" name="email">
-      <input type="text" placeholder="Subject..." v-model="subject" id="myInput" name="subject">
-      <textarea name="message" v-model="message" cols="30" id="myInput" placeholder="Message..." rows="10"></textarea>
+      <input type="text" placeholder="Name..." v-model="userName" id="myInput" name="name" required>
+      <input type="text" placeholder="Email..." v-model="email" id="myInput" name="email" required>
+      <input type="text" placeholder="Subject..." v-model="subject" id="myInput" name="subject" required>
+      <textarea name="message" v-model="bodyMessage" cols="30" id="myInput" placeholder="Message..." rows="10" required></textarea>
       <input id="submit" type="submit" value="Submit">
     </form>
   </div>
@@ -18,9 +18,10 @@
     name: 'FormTemplate', 
     methods: {
       sendEmail: function() {
-        axios.post("http://localhost:3000/send-email", { name: this.userName, email: this.email, subject: this.subject, message: this.message })
+        let self = this
+        axios.post("http://localhost:3000/send-email", { name: this.userName, email: this.email, subject: this.subject, message: this.bodyMessage })
              .then(function () { 
-               this.$emit("emailPosted", {
+               self.$emit("emailPosted", {
                   sent: true,
                   notSent: false,
                   message: "Email Sent Successfully"
@@ -28,32 +29,34 @@
               })
              .catch(function (error) {
                console.log(error);
-               this.$emit("emailPosted", {
+               self.$emit("emailPosted", {
                   sent: false,
                   notSent: true,
                   message: "Email Sent Unsuccessfully"
                 });
               })
+             .finally(function () {
+               setTimeout(() => {self.$emit("emailPosted", {
+                sent: false,
+                notSent: false,
+                message: "t"
+              })}, 1000);
+             });
         
         this.resetPage();
-        setTimeout(() => this.$emit("emailPosted", {
-          sent: false,
-          notSent: false,
-          message: "t"
-        }), 1000);
       },
       resetPage: function() {
         this.userName = ''
         this.email = ''
         this.subject = ''
-        this.message = ''
+        this.bodyMessage = ''
       }
     }, data() {
       return {
         userName: '',
         email: '',
         subject: '',
-        message: ''
+        bodyMessage: ''
       }
     }
   }
